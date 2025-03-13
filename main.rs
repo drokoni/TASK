@@ -172,33 +172,6 @@ async fn take_screenshot(
         .unwrap();
     Ok(screenshot)
 }
-/*
-async fn save_js_scripts(url: &str, client: &Client, js_scripts_dir: &str) {
-    let response = client.get(url).send().await.unwrap();
-    let body = response.text().await.unwrap();
-    let document = Html::parse_document(&body);
-    let selector = Selector::parse("scrip[src]").unwrap();
-
-    for element in document.select(&selector) {
-        if let Some(src) = element.value().attr("src") {
-            let script_url = if src.starts_with("http") {
-                src.to_string()
-            } else {
-                format!("{}{}", url.trim_end_matches('/'), src)
-            };
-            let scrip_response = client.get(&script_url).send().await.unwrap();
-            let script_content = scrip_response.text().await.unwrap();
-
-            let file_name = src.split('/').last().unwrap_or("script.js");
-            let file_path = format!("{}/{}", js_scripts_dir, file_name);
-            let mut file = File::create(&file_path).unwrap();
-            file.write_all(script_content.as_bytes()).unwrap();
-
-            println!("JavaScript-скрипт сохранен в {}", file_path);
-        }
-    }
-}
-*/
 
 async fn save_js_scripts(url: &str, client: &Client, js_scripts_dir: &str) {
     let response = client.get(url).send().await;
